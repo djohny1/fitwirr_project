@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load exerciselibrary_tags %}
+
+{% block content %}
+    <div class="container">
+        <br /><br />
+        <div class="row">
+         {% if request.user.is_authenticated %}
+        <div class="col-lg-2 col-12">
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href='/'><span class="badge pull-right"></span>Home</a></li>
+            <li><a href="{% if request.user.is_authenticated %}{% url 'profile' request.user.username %}{% endif %}">Profile</a></li>
+         
+            <li><a href="{% if request.user.is_authenticated %}{% url 'profile_likes' request.user.username %}{% endif %}"><span class="badge pull-right">{{ userlikes_count }}</span>My like</a></li>
+          </ul>
+        </div>
+        {% endif %}
+        <div class="col-lg-10">
+           {% if messages %}
+              <div class="row">
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+              </div>
+           {% endif %}
+           
+           
+           
+           {% if userlikes %}
+           	{% for like in userlikes %}
+                    
+	<div class="t-main col-md-5">
+	    <div class="thumbnail" >
+		    <a href='{% url "single_exercise"  like.exercise_image.exercise.slug %}'><img src="{{MEDIA_URL}}{{ like.exercise_image.image }}" class="img-responsive" alt="{{like}}"></a>
+	     <div class="like-buttons">
+                <a href="#" name="{{like.exercise_image.id}}" class="like-image pull-right">{{ like.exercise_image|like_or_dislike_image:request.user }}
+                    <span>{{ like.exercise_image.like_count }} <span  class="glyphicon glyphicon-heart"></span></span></a><br />
+               </div>
+             <br />
+
+            </div>
+              <br />  <br />
+	</div>
+                                
+                                
+           	{% endfor %}
+		   {% endif %}
+        </div>
+        {% if not userlikes %}
+<div class="row">
+        <div class="col-md-3">
+                    
+                        {% for pic in single_user.userpicture_set.all %}
+                            {% if forloop.first %}
+                                 <div class="thumbnail" >
+                                <img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive'/>
+                                 </div>
+                            {% endif %}
+                         {% endfor %}
+                        
+                             {% if not single_user.userpicture_set.all %}
+                                <img src='{{ STATIC_URL }}/img/default.jpg' class='img-responsive'/>
+                            {% endif %}
+                            
+        </div>
+                        <h3>{% if single_user.first_name %}{{ single_user.firts_name }}{% else %}{{ single_user|capfirst }}{% endif %}</h3><hr />
+                    {% for item in single_user.profile_set.all %}
+                        {% if forloop.last %}
+                       {{item.about|linebreaks}}
+                       <hr />
+                       <strong>My fitness goal :</strong> {{ item.fitness_goal }}
+                    {% endif %}
+            
+                    {% endfor %}
+                    
+                   
+                        
+
+</div>
+{% endif %}
+{% endblock  %}
+
+{% block bottom_javascript %}
+    <script>
+      $(document).ready(function(){
+   
+       $(document).on("click", "a.like-image", function(){
+		  image_id = $(this).attr("name");
+		  elem = $(this);
+		  elem.button("...");
+		  
+		  url = "{% url 'like_or_dislike_exercise_image' '12345' %}".replace(/12345/,image_id);
+		  //alert(url);
+		  var jqxhr = $.ajax(url)
+			  .done(function(data) {
+				//alert( "success" );
+				//alert(data);
+				
+				$("[name=" + image_id + "]").each(function() {
+					$(this).parent().html(data);
+				});
+				
+			  })
+			  .fail(function() {
+				//alert( "error" );
+			  })
+			  .always(function() {
+				//alert( "complete" );
+			  });
+                          return false;
+		});
+	});
+	</script>
+{% endblock bottom_javascript %}

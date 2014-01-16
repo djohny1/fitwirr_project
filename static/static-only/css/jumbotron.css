@@ -1,0 +1,186 @@
+
+body{
+  background: url(../img/); no-repeat;
+  background-color: #eeeeee;
+  line-height: 1;
+  background-size: cover;
+  height:100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+  
+ 
+}
+
+
+
+#fitwirr-bg{
+  background-color:#FDFDFD;
+}
+
+#carousel-example-generic{
+  margin-top: 40px;
+}
+
+/* navbar color */
+
+footer {
+  padding: 30px 0;
+}
+
+
+.bs-sidenav {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #f7f5fa;
+  border-radius: 5px;
+}
+
+
+
+.fullname {
+font-weight: bold;
+color: #333;
+right: 48px;
+
+
+}
+
+
+
+
+li {
+display: list-item;
+text-align: -webkit-match-parent;
+}
+
+
+.account-summary .avatar {
+position: absolute;
+top:0;
+left:0;
+}
+
+
+
+.avatar {
+width: 48px;
+height: 48px;
+border-radius: 5px;
+-moz-force-broken-image-icon: 1;
+}
+
+#styling{
+  margin-left: 5px;
+  padding-top: 7px;
+  border-radius: 5px;
+}
+
+.global-nav .account-summary .avatar {
+top: 5px;
+left: 22px;
+-webkit-box-shadow: none;
+box-shadow: none;
+border-radius: 5px;
+}
+
+.account-summary-small .content {
+margin-left: 42px;
+}
+
+
+#blog_background-color{
+  background-color:#f9fafb;
+}
+
+
+
+#pub_date_color{
+  color: #eed3d7;
+}
+
+.content_article{
+color: #393939;
+font-family: Georgia,serif;
+font-size: 16px;
+line-height: 22px;
+}
+
+#dotted {
+margin-top: 20px;
+margin-bottom: 20px;
+border: 0;
+border-top: 3px dotted #fff;
+height: 1px;
+}
+
+hr {
+margin-top: 20px;
+margin-bottom: 20px;
+border: 0;
+border-top: 1px solid #fff;
+
+}
+
+
+#single-image-color{
+  background: #ffffff;
+  
+}
+
+/* icon heart related-exercise */
+.pink{
+  color:#EED3D7;
+}
+
+/* icon heart like-exercise */
+
+.purple{
+  color:#B048B5;
+}
+
+.dark-pink{
+  color:#E38AAE;
+}
+
+
+
+.index-blog-bg {
+min-height: 20px;
+padding: 19px;
+margin-bottom: 20px;
+background-color: #F9F9F9;
+border: 1px solid #F9F9F9;
+border-radius: 2px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+}
+
+
+
+a:hover, a:visited, a:link, a:active{
+   text-decoration: none;
+}
+
+/* tag-style */
+.bg-tag{
+  background: #d8d8d8;
+  text-decoration: none;
+  color: #959595;
+ 
+  
+}
+
+.page-header {
+padding-bottom: 9px;
+margin: 40px 0 20px;
+border-bottom: 1px solid #fff;
+}
+
+
+
+
+

@@ -1,0 +1,5 @@
+{% load exerciselibrary_tags %}
+    
+               <a class="purple" href="#" name="{{image.id}}" class="like-image pull-right purple">{{ image|like_or_dislike_image:request.user }}
+				<span class="purple">{{ image.like_count }}<span  class="glyphicon glyphicon-heart purple"></span></span></a>
+

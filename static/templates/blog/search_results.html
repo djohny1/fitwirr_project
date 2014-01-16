@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h3 class="header">You search for : {{ q|capfirst }}</h3><hr />
+        
+  {% for blog in blogs %}
+      <div class="row">
+       <div class="col-md-4">
+        <!--<div class="col-lg-7 col-md-7">-->
+            {% for image in blog.blogimage_set.all %}
+                
+              
+                   
+          <a href="{{ blog.get_absolute_url }}"><img src="{{MEDIA_URL}}{{ image.image }}" id="img-size"  class="img-responsive"></a>
+        
+                {% endfor %}  
+         
+        </div>
+
+        <div class="col-lg-5 col-md-5">
+           
+          <h3><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h3>
+           <p><span class="glyphicon glyphicon-time"></span> Posted on {{blog.pub_date|date:'F d, Y'}}</p>
+         
+          <p>{{blog.body|truncatewords:50}}
+          <a " href="{{ blog.get_absolute_url }}">Read post <span class="glyphicon glyphicon-chevron-right"></span></a></p>
+           
+        </div>
+        
+        
+     
+
+      </div>
+       <hr />
+ 
+ 
+            {% empty%}
+            No blogs post were found matching those searcth terms.            
+			{% endfor %}
+			<div class="pagination">
+				<span class="step-links">
+					{% if blog.has_previous %}
+						<a href="?page={{ blog.previous_page_number }}">previous</a>
+					{% endif %}
+
+					<span class="current">
+						Page {{ blog.number }} of {{ blog.paginator.num_pages }}.
+					</span>
+
+					{% if blog.has_next %}
+						<a href="?page={{ blog.next_page_number }}">next</a>
+					{% endif %}
+				</span>
+			</div>
+        
+        
+        {% comment %}
+        {% for p in matching %}
+            
+          
+            {% empty%}
+            No blogs post were found matching those searcth terms.
+        {% endfor %}
+		{% endcomment %}
+
+  </div>
+</div>
+
+{% endblock %}

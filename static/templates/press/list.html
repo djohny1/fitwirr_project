@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+<div class="row">
+      <div class=" col-md-3"><br /><br />
+          <h2></h2>
+          <div class="list-group">
+            <a href="{% url 'list' %}" class="list-group-item">Company News</a>
+            <a href="{% url 'about' %}" class="list-group-item">About</a>
+            <a href="{% url 'press_room' %}" class="list-group-item">Press Room</a>
+            <a href="{% url 'contact_us' %}" class="list-group-item">Contact Us</a>
+          </div>
+        </div>
+      
+      <div class="col-md-9">
+        <h1 class="page-header">Company News </h1>
+    {% for news in all_news %}
+    <p><span class="glyphicon glyphicon-time"> </span> Posted on {{news.pub_date|date:'F d, Y'}}<br />
+  <a href="{{news.get_absolute_url}}" class="lead">{{ news.headline }}</p></a><br />
+ 
+   
+    
+        
+  
+{% endfor %}
+     
+
+ </div>
+
+ </div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if all_news.has_previous %}
+            <a href="?page={{ all_news.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ all_news.number }} of {{ all_news.paginator.num_pages }}.
+        </span>
+
+        {% if all_news.has_next %}
+            <a href="?page={{ all_news.next_page_number }}">next</a>
+        {% endif %}
+    </span>   
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load url from future %}
+
+{% block content %}
+   <div class="row">
+          <div class=" col-md-3"><br /><br />
+          <h2></h2>
+          <div class="list-group">
+            <a href="{% url 'about' %}" class="list-group-item">About</a>
+            <a href="{% url 'list' %}" class="list-group-item">News Release</a>
+            <a href="{% url 'press_room' %}" class="list-group-item">Press Room</a>
+            <a href="{% url 'contact_us' %}" class="list-group-item">Contact Us</a>
+          </div>
+        </div>
+      <div class="col-md-9" id="press-room-bgc">
+        <h1 class="page-header">Press Room</h1>
+        <h3>What is Fitwirr ?</h3>
+        <p class="lead">Pinterest is a tool for discovering things you love,
+          and doing those things in real life.
+          Ben Silbermann, Evan Sharp and Paul Sciarra co-founded our site in March 2010. Since then,
+          we&#8217;ve helped millions of people pick up new hobbies,
+          find their style and plan life&#8217;s important projects.</p>
+        
+          <h3>Here are a few ways to hear more from us</h3>
+          <ul class="lead">
+            <li>Visit our blog to get the latest update <a href="{% url 'index' %}"><small>Fitwirr blog.</small></a></li>
+            <li>For journalists with questions, Please sent us an e-mail <a href="mailto:press@fitwirr.com?Subject=Hello%20again" target="_top"><small>press@fitwirr.com.</small></a></li>
+          </ul>
+         <br /><br />
+           <h1 class="text-muted">Media & Downloads</h1><hr />
+           
+           <h3 class="lead">Logo and icon for your web and prints!</h3><br />
+           
+           
+            <div class="col-md-3 "><img src="{{STATIC_URL}}img/FitwirrFinalSmall.png" alt="fitwirr logo"><br /> <br/>
+            <p class="lead"><a href="{% url 'logo' %}">Logo</a></p></div>
+            
+            
+            <div class="col-md-3 col-md-offset-3"><img src="{{STATIC_URL}}img/72pxIcon.png" alt="fitwirr app icon" ><br />
+            <p class="lead"></p><a href="{% url 'app_icon' %}">App Icon</a></div>
+  
+
+        
+      </div>
+   </div>
+    
+
+{% endblock %}

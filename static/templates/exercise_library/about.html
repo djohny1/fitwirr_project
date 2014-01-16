@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<br /><br /><br />
+  <div class="row">
+     
+           <div class="col-md-3">
+                     <p class="lead">About us</p>
+                     <div class="list-group">
+                       <a href="{% url 'list' %}" class="list-group-item">Company News</a>
+                        <a href="{% url 'press_room' %}" class="list-group-item">News Room</a>
+                       <a href="{% url 'index' %}" class="list-group-item">Our Blog</a>
+                       <a href="{% url 'team' %}" class="list-group-item">Team</a>
+                       
+                       <a href="{% url 'contact_us' %}" class="list-group-item">Contact us</a>
+                        <a href="{% url 'terms' %}" class="list-group-item">Terms of use</a>
+                       <a href="{% url 'privacy' %}" class="list-group-item">Privacy Policy</a>
+                     </div>
+           </div>
+        
+            <div class="col-md-9">
+                    <h1 class="page-header">About Fitwirr</h1>
+                    <p class="lead">Fitwirr is an online health and fitness resource of fast and easy exercise guide to bring fit into your life, 
+                 Join us and help spread the word!</a>
+                </p>
+                   
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+    </div>
+
+{% endblock %}

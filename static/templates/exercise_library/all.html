@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% load exerciselibrary_tags %}
+
+
+
+
+
+
+{% block content %}
+
+    
+    <div class="progress-bar"></div>
+    <div class="container">  
+    
+    
+    
+<div id="main" class="row"   style="position: relative;">
+     
+    {% for exercise in exercises %}
+           
+   <!-- col-sm-6  -->
+  
+	<div class="t-main col-md-6">
+		<div class="thumbnail" >
+        
+         {% for image in  exercise.exerciseimage_set.all %}
+            
+         
+            {% if forloop.first %}
+          
+                <a href='{% url "single_exercise"  exercise.slug %}'><img src="{{MEDIA_URL}}{{ image.image }} " class="img-responsive" alt="{{exercise.title}}"></a><br />
+              {% endif %}
+              
+               {% if request.user.is_authenticated %}
+               <div class="like-buttons purple">    
+               <a href="#" name="{{image.id}}" class="like-image pull-right purple">{{ image|like_or_dislike_image:request.user }}
+				<span>{{ image.like_count }}<span  class="glyphicon glyphicon-heart purple"></span></span></a>
+               </div>
+               {% else %}
+               <div class="like-buttons purple">    
+               <a href="/accounts/login"  name="{{image.id}}" class="pull-right purple">{{ image|like_or_dislike_image:request.user }}
+				<span class="purple">{{ image.like_count }}<span  class="glyphicon glyphicon-heart purple"></span></span></a>
+               </div>
+               
+               {% endif %}
+		 {% endfor %}
+  
+        
+		<div  class="caption">
+		    <h4>{{exercise.title}} </h4>
+		    <p>{{ exercise.description|truncatewords:15 }}</p> <hr />
+		    <p><a href="{% url 'single_exercise'  exercise.slug %}"><button type="button" class="btn btn-info btn-sm">{{ exercise }}</button></a>
+                                  
+                            
+			   
+                    
+                    </p>
+
+		</div>
+    </div><br />
+  </div>
+
+{% endfor %}
+
+</div>
+</div>
+{% endblock %}
+
+{% block bottom_javascript %}
+    <script>
+      $(document).ready(function(){
+   
+       $(document).on("click", "a.like-image", function(){
+		  image_id = $(this).attr("name");
+		  elem = $(this);
+		  elem.button("...");
+		  
+		  url = "{% url 'like_or_dislike_exercise_image' '12345' %}".replace(/12345/,image_id);
+		  //alert(url);
+		  var jqxhr = $.ajax(url)
+			  .done(function(data) {
+				//alert( "success" );
+				//alert(data);
+				
+				$("[name=" + image_id + "]").each(function() {
+					$(this).parent().html(data);
+				});
+				
+			  })
+			  .fail(function() {
+				//alert( "error" );
+			  })
+			  .always(function() {
+				//alert( "complete" );
+			  });
+                          return false;
+		});
+   
+      
+      $('#main').imagesLoaded(function() {
+      var loadedImages = 0, // Counter for loaded images
+      
+      handler = $('div.t-main'); // Get a reference to your grid items.
+      //handler = null;
+      // Prepare layout options.
+      var options = {
+        autoResize: true, // This will auto-update the layout when the browser window is resized.
+        container: $('#main'), // Optional, used for some extra CSS styling
+        offset: 5, // Optional, the distance between grid items
+        outerOffset: 10, // Optional, the distance to the containers border
+        itemWidth: 280, // Optional, the width of a grid item
+        flexibleWidth: true,
+		}
+	  function applyLayout() {
+		$('#main').imagesLoaded(function() {
+			handler = $('div.t-main'); // Get a reference to your grid items.
+            // Destroy the old handler
+            if (handler.wookmarkInstance) {
+              handler.wookmarkInstance.clear();
+            }			
+			
+			// Call the layout function.
+			handler.wookmark(options);
+
+		  }).progress(function(instance, image) {
+			// Update progress bar after each image load
+			loadedImages++;
+			if (loadedImages == handler.length)
+			  $('.progress-bar').hide();
+			else
+			  $('.progress-bar').width((loadedImages / handler.length * 100) + '%');
+		  });
+
+		};	
+		
+		
+		 /**
+         * When scrolled all the way to the bottom, add more tiles.
+         */
+        function onScroll(event) {
+          // Check if we're within 100 pixels of the bottom edge of the broser window.
+          var winHeight = window.innerHeight ? window.innerHeight : $(window).height(); // iphone fix
+          var closeToBottom = ($(window).scrollTop() + winHeight > $(document).height() - 100);
+
+          if (closeToBottom) {
+            // Get the first then items from the grid, clone them, and add them to the bottom of the grid.
+            var items = $('div.t-main'),
+                firstSix = items.slice(0, 6);
+            $('div#main').append(firstSix.clone());
+
+            applyLayout();
+          }
+        };
+
+        // Capture scroll event.
+        $(window).bind('scroll', onScroll);
+		
+		applyLayout();
+		
+	 });	
+	});
+</script>
+{% endblock %}

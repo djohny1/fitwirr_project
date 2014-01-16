@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to Fitwirr's blog{% endblock %}
+
+{% block content %}
+<div class="row">
+    
+        <div class="col-lg-12">
+          <h1 class="page-header">Blog</h1>
+        </div>
+       
+    <div class="col-md-8">
+            {% for blog in blog %}
+
+<div class="row index-blog-bg" >
+  
+       <div class="col-md-4"><br />
+                 {% for image in blog.blogimage_set.all %}      
+               <a href="{{ blog.get_absolute_url }}"><img src="{{MEDIA_URL}}{{ image.image }}" id="img-size"  class="img-responsive"></a>
+           
+            </br />
+             {% endfor %}  
+       </div><!--endcol-md-4-->
+       
+         <div class=" col-md-8">
+               
+              <h3 class"link-decoration"><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h3>
+               <p class="dark-pink"><span class="glyphicon glyphicon-time"></span> Posted on {{blog.pub_date|date:'F d, Y'}}</p>
+             
+              <p>{{blog.body|truncatewords:20}}
+              <a " href="{{ blog.get_absolute_url }}"><small>Continue Reading <span class="glyphicon glyphicon-arrow-right"></span></small></a></p>
+               
+            </div>
+     
+</div><!--row-->
+
+ {% endfor %}
+    </div><!--endcol-md-8-->
+    
+ 
+  
+  <div class="col-md-4"><!--sidebar-->
+       <div class="index-blog-bg">
+            
+            <form action="{% url 'blog_search'%}" method="get">
+                
+            <div class="input-group">
+              
+              <input type="text" name="q" class="form-control" placeholder="Search for blog post">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" type="button"><span class="glyphicon glyphicon-search dark-pink"></span></button>
+              </span>
+            </div><!-- /input-group -->
+            </form>
+          </div><!-- /well -->
+          
+                
+          <div class="index-blog-bg">
+            <h4>Popular Blog Categories</h4>
+              <div class="row">
+                  {% for title in categories %}
+                <div class="col-lg-6">
+               
+                  <ul class="list-unstyled">
+                    <li><a href="{{ title.get_absolute_url }}">{{title.title}}</a></li>
+                    
+                      
+                  </ul>
+               
+                </div>
+                 {% endfor %}
+              </div>
+          </div><!-- /well -->
+          
+           
+           <div class="index-blog-bg">
+            <h4><small><span class="glyphicon glyphicon-calendar dark-pink"></small> Archive</h4>
+              <div class="row">
+                    {% for post in pub_date %}
+                <div class="col-lg-6">
+              
+                  <ul class="list-unstyled">
+                    <li class"link-decoration"><a href="{{ post.get_absolute_url }}">{{post.pub_date|date:'F  Y'}}</a></li>
+                    
+                      
+                  </ul>
+               
+                </div>
+                {% endfor %}
+              </div>
+           </div>
+    
+    
+  </div><!--endsidebar-->
+</div><!--endrow-->
+
+<div class="pagination">
+    <span class="step-links">
+        {% if blog.has_previous %}
+            <a href="?page={{ blog.previous_page_number }}">&larr; Older</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ blog.number }} of {{ blog.paginator.num_pages }}.
+        </span>
+
+        {% if blog.has_next %}
+            <a href="?page={{ blog.next_page_number }}">Newer &rarr;</a>
+        {% endif %}
+    </span>
+</div>
+   
+
+    
+{% endblock %}

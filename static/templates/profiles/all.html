@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+  <div class="col-xs-6 col-sm-3">
+    {% for user in users %}
+       
+         {% if not request.user == user %}
+            <a href="/members/{{ user.username }}">
+            
+                {% for pic in user.userpicture_set.all %}
+                        
+                        {% if forloop.first %}
+                            <div class="thumbnail">
+                            
+                            <img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive'/>
+                            </div>
+                        {% endif %}
+                     {% endfor %}
+                     
+                     
+           
+                     
+                       {% if not user.userpicture_set.all %}
+                                             <div class="thumbnail" >
+                                           <img src='{{ STATIC_URL }}/img/default.jpg' class='img-responsive'/>
+                                             </div>
+                                       {% endif %}
+                                           {{ user }}</a><br/>
+                               
+                               {% for item in user.profile_set.all %}{% if forloop.first %}
+                                       {{ item }}
+                               {% endif %}
+                                        <br /><br />
+                                           {% cycle '' '' '' '</div><div class="row">' %}
+                                         {% endfor %}
+                     
+       
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+        {% endif %}
+    {% endfor %}
+  
+  </div>
+  
+  
+  
+
+  <!-- Add the extra clearfix for only the required viewport -->
+  <div class="clearfix visible-xs"></div>
+
+</div>
+{% endblock  %}

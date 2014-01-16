@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row logot-padding">
+       
+               <div class="col-md-6 col-md-offset-3">
+
+                <p class="logout-message">You successfully <strong>{% trans "Logged out" %}</strong> !</p>
+                
+                 <h2 class="lead text-center">See you soon again !</h2>
+               <div class="col-md-6 col-md-offset-3">
+                <p class="text-center down"><a  class="btn btn-primary btn-sm button"  href="/accounts/login">Back <span class="glyphicon glyphicon-arrow-right btn-xs"></span> Please login</a></p>
+                </div>
+                
+      </div>
+    </div>
+{% endblock %}
+
+
+
+

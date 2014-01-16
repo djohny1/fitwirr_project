@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+Search for: {{ q }}
+
+
+    
+    <div class="progress-bar"></div>
+    <div class="container">  
+    <h1>Fitness Library</h1>
+    
+    
+<div id="main" class="row"   style="position: relative;">
+     
+    {% for exercise in exercises %}
+           
+   <!-- col-sm-6  -->
+  
+	<div class="t-main col-md-3">
+		<div class="thumbnail" >
+        
+         {% for image in  exercise.exerciseimage_set.all %}
+            
+         
+            {% if forloop.first %}
+          
+                <a href='{% url "single_exercise"  exercise.slug %}'><img src="{{MEDIA_URL}}{{ image.image }} " class="img-responsive" alt="..."></a>
+              {% endif %}
+                        
+		 {% endfor %}
+   
+        
+		  <div  class="caption">
+			<h4>{{exercise.title}} </h4>
+			<p>{{ exercise.description|truncatewords:15 }}</p>
+			<p> <a href="{% url 'single_exercise'  exercise.slug %}">{{ exercise }}</a></p>
+
+		   </div>
+    </div>
+  </div>
+
+{% endfor %}
+
+</div>
+</div>
+
+{% endblock %}

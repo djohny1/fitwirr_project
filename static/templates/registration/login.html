@@ -1,0 +1,35 @@
+
+{% extends "contact_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+<div class="row"  >
+
+  <div id="login" class="col-md-5 col-md-offset-3" >
+   
+<form  method="post" action="." class="form-signin" role="form">{% csrf_token %}
+<h1 class="login"><span class="spam">Welcome.</span> Please login !</h1><hr />
+
+   {{ form.as_p }}
+
+ 
+
+  <input class="button" type="submit" value="{% trans 'Log in' %}" /><br />
+  <input type="hidden" name="next" value="{{ next }}" />
+  
+  <br />
+<hr />
+<p id="forgot_passord">{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a></p>
+<p id="forgot_passord">{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a></p>
+
+  <br />
+</form>
+
+</div>
+ 
+ 
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Tags page</h2><hr />
+    <div class="row">
+        <div class="col-md-8 ">
+            <p class="lead">Simillar tagged with the word best <b>{{tag}}</b></p>
+           
+            {% for post in blog %}
+                <P class="lead"><span class="glyphicon glyphicon-time"></span> Posted on {{post.pub_date|date:'F d, Y'}}<a href="{{post.get_absolute_url }}"> <br />{{post.title}}</a></P>
+                
+                {% endfor %}
+        </div>
+        
+
+   
+       
+    </div>
+    
+            <div class="pagination">
+    <span class="step-links">
+        {% if post.has_previous %}
+            <a href="?page={{ post.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ post.number }} of {{ blog.paginator.num_pages }}.
+        </span>
+
+        {% if post.has_next %}
+            <a href="?page={{ post.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+    
+    </div>
+
+{% endblock %}
